@@ -1,0 +1,123 @@
+Assignment 3 - Raytracing
+Students: Seungmoon Rieh and Jason Liu
+Date: April 2, 2015
+
+For this project, we have implemented an advaned ray tracing with the following features
+- ray tracing
+- shapes: square, sphere, cynlinder
+- lighting: scene signiture, ambient, diffuse, phong
+- anti-alising
+- glossy reflection
+- refraction
+- hard shadow
+- soft shadow
+- depth of field
+
+1. Overall submission
+1.1 Folder "partA_images"
+- sig1 & sig2 : scene signiture
+- sig1AA & sig2AA : scene signiture with anti-alising
+- diffuse1 & diffuse2 : diffuse and ambient lighting
+- diffuse1AA & diffuse2AA : diffuse and ambient lighting with anti-alising
+- phone1 & phong2 : phong shading
+- phone1AA & phong2AA : phong shading with anti-alising
+
+1.2 Folder "partB_images"
+- reflection1 & reflection2 : glossy reflections
+- refraction1(index<1) & refraction2(index<1) : refractions where the index is less than 1
+- refraction1(index>1) & refraction2(index>1) : refractions where the index is greater than 1
+- hard_shadow1 & hard_shadow2 : shadows implemented using a single point light source
+- soft_shadow1 & soft_shadow2 : soft shadows from the extended light source 
+- depth_of_field : depth of field effect. (more blurring effect as moves further from the image plane)
+
+1.3 text files
+- README
+- CHECKLIST
+- REPORT
+
+1.4 header files
+- scene_object.h 
+- light_source.h
+- raytracer.h
+- util.h
+- bmp_io.h
+
+1.5 C++ files
+- scene_object.cpp 
+- light_source.cpp
+- raytracer.cpp
+- util.cpp
+- bmp_io.cpp
+
+1.6 Make files
+- Makefile
+- MakefileUTSC
+
+1.7 runnable
+- raytracer
+
+1.8 How to run the code
+- go to the folder "raytracer"
+- type "make"
+- type "./raytracer"
+- open up the images generated
+- You need to modify the code to reproduce all the images that are submitted. The codes are heavily commented for you to find out all the features implemented.
+
+2. what is implemented
+2.1 scene_object.cpp & scene_object.h 
+The implemetation of the object shapes closely followed the line-object intersection detection methods 
+discussed at Wikipedia and Stack Overflow. 
+- Ray-square intersection (http://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection) 
+- Ray-sphere intersection (http://en.wikipedia.org/wiki/Line%E2%80%93sphere_intersection)
+- Ray-cylinder intersection (http://stackoverflow.com/questions/4078401/trying-to-optimize-line-vs-cylinder-intersection)
+
+2.2 light_source.cpp & light_source.h
+The implemtation of the following closely followed the lecture pack from week 6 "Lighting and reflection". The exact same equations from the lecture have been applied to implement the following lightings.
+- scene signiture
+- diffuse lighting
+- ambient lighting
+- phong shading
+
+2.3 raytracing.cpp & raytracer.h
+2.3.1 anti-alising
+- Anti-alising implemented in the function "render" by shooting multiple rays to each pixel and adding up contributions from each ray.
+- In the "render" function, one can choose to render with or without anti-alising by commenting in/out the code.
+
+2.3.2 reflection (http://asawicki.info/news_1301_reflect_and_refract_functions.html)
+- Reflection is implemented in the function "shadeRay" using the equations from above link. 
+- Reflection coefficient has been applied for smooth color transition to the reflected image. 
+
+2.3.3 refraction (http://asawicki.info/news_1301_reflect_and_refract_functions.html)
+- Implemented in the function "shadeRay" using the equations from above link. 
+- Refraction coefficient has been applied for smooth color transition to the retracted image. 
+- In the "shadeRay" function, one can choose to render with reflection or refraction or neither of them by commenting in/out the code.
+
+2.3.4 soft shadows
+- Implemented in the function "addAreaLightSource" and in the function "computeShading" 
+- "computeShading" implements hard shadows by selectively phong-shading areas that are not part of the shadow.
+- From "computeShading", one can choose to render the hard shadows by commenting in/out the code.
+- "addAreaLightSource" implements adding multiple lights where each light adds up the intensity of the area light.
+- In the main function, one can choose point or area light by commenting in/out the code.
+
+2.3.5 depth of field
+- Implemented in the function "render"
+- Craetes blur effect by changing the x and y position of the eyes such that as z values move further from the image plane, the blur effect magnifies
+- To render this effect, four spheres with different sizes and locations have been created in the main function. 
+
+
+3. Role of each member
+3.1 PartA
+- Ray casting : Seungmoon Rieh
+- Ray-square intersection : Seungmoon Rieh
+- Ray-sphere intersection : Seungmoon Rieh
+- Light source : Seungmoon Rieh
+- Anti-alising : Seungmoon Rieh
+
+3.2 PartB
+- Non-trivial object (Cylinder) : Jason Liu
+- Glossy reflections : Jason Liu
+- Refraction : Jason Liu
+- Soft shadows : Jason Liu
+- Depth of field : Jason Liu
+
+3.3 Report : Seungmoon Rieh
