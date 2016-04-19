@@ -1,6 +1,6 @@
 # RayTracer
 
-Realistic images rendered by raytracer
+Realistic images rendered by raytracer technique
 
 ![RayTracer](/screen1.bmp?raw=true)
 ![RayTracer](/screen2.bmp?raw=true)
